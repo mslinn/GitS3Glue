@@ -9,7 +9,7 @@ if (s3.exception!=null) {
   %>Your buckets are:
   <ul><%
   for (String s : s3.listBuckets()) {
-     %><li><%=s%></li><%
+     %><li><tt><%=s%></tt></li><%
   }
 } %></ul>
 </body>
