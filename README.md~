@@ -212,11 +212,6 @@ Create the app on the Cedar stack:
     http://high-lightning-129.herokuapp.com/ | git@heroku.com:high-lightning-129.git
     Git remote heroku added
 
-Define two environment variables to hold your AWS access key and your AWS secret key:
-
-    heroku config:add accessKey=34poslkflskeflsekjfl
-    heroku config:add secretKey=asdfoif3r3wfw3wgagawgawgawgw3taw3tatefef
-
 Deploy your code:
 
     :::term
@@ -254,4 +249,5 @@ Congratulations! Your web app should now be up and running on Heroku. Open it in
 
     :::term  
     $ heroku open
+
 
