@@ -5,7 +5,12 @@
 S3 s3 = new S3();
 if (s3.exception!=null) {
   %>Exception: <%=s3.exception.getMessage()%><br/><%
-} else { %>
-  Your buckets are: <%=s3.listBuckets()%><br/><%
-} %></body>
+} else {
+  %>Your buckets are:
+  <ul><%
+  for (String s : s3.listBuckets()) {
+     %><li><%=s%></li><%
+  }
+} %></ul>
+</body>
 </html>
