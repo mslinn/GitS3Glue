@@ -27,9 +27,19 @@ The web app should now be up and running on Heroku. Open it in your browser with
 passive and cannot pull, and this Heroku app should not poll for changes. A post-receive hook or service
 needs to run on GitHub / BitBucket to push this Heroku app, which propagates changes to AWS S3.
 
-## GitHub WebHook URLs Hook ##
+## Git Post-Receive Service Hooks ##
+A JSP is dedicated to each git service. The JSPs will do the following when complete:
+
+ 1. Accepts a POST in JSON format from GitHub/BitBucket describing the commit.
+ 2. Verifies the POST to be a result of a valid commit.
+ 3. Reads a zip containing the committed files.
+ 4. Unpacks the zip and pushes content files to AWS S3.
+
+### GitHub WebHook URLs Hook ###
 The GitHub WebHook URLs(0) service is what we need.
 Go to Admin / Service Hooks and pick the first entry, then enter the URL to POST to.
+
+`fromGitHub.jsp` is not written yet.
 
 The service description says:
 "We’ll hit these URLs with POST requests when you push to us, passing along information about the push.
@@ -40,14 +50,9 @@ FYI, GitHub's [service hooks](https://github.com/mslinn/HerokuTomcatAwsS3/admin/
 They include user-written hooks into the public list.
 Docs are [here](https://github.com/github/github-services).
 
-## BitBucket POST Service ##
+### BitBucket POST Service ###
 Each time files are pushed to BitBucket, a POST can originate from the repo and can go a designated URL.
 For the details on the services included with Bitbucket, check out [BitBucket services](https://confluence.atlassian.com/display/BITBUCKET/Managing+bitbucket+Services)
 and [POST service](https://confluence.atlassian.com/display/BITBUCKET/Setting+Up+the+bitbucket+POST+Service).
 
-`fromBitBucket.jsp` will do the following when complete:
-
- 1. Accepts a POST in JSON format from BitBucket describing the commit.
- 2. Verifies the POST to be a result of a valid commit from BB.
- 3. Reads a zip from BitBucket containing the committed files.
- 4. Unpacks the zip and pushes content files to AWS S3.
+`fromBitBucket.jsp` does the work.
