@@ -25,7 +25,7 @@ The web app should now be up and running on Heroku. Open it in your browser with
  3. S3 serves static web site
  4. Commits to GitHub / BitBucket should cause changed files to be copied to AWS S3. Remember that S3 is
 passive and cannot pull, and this Heroku app should not poll for changes. A post-receive hook or service
-needs to run on GitHub / BitBucket to push this Heroku app, which propagates changes to AWS S3.
+needs to run on GitHub / BitBucket to push to this Heroku app, which propagates changes to AWS S3.
 
 ## Git Post-Receive Service Hooks ##
 A JSP is dedicated to receiving updates from each remote git service (GitHub or BitBucket).
@@ -52,8 +52,8 @@ They include user-written hooks into the public list.
 Docs are [here](https://github.com/github/github-services).
 
 ### BitBucket POST Service ###
+`fromBitBucket.jsp` does the work.
+
 Each time files are pushed to BitBucket, a POST can originate from the repo and can go a designated URL.
 For the details on the services included with Bitbucket, check out [BitBucket services](https://confluence.atlassian.com/display/BITBUCKET/Managing+bitbucket+Services)
 and [POST service](https://confluence.atlassian.com/display/BITBUCKET/Setting+Up+the+bitbucket+POST+Service).
-
-`fromBitBucket.jsp` does the work.
