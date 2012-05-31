@@ -32,7 +32,7 @@ Each time files are pushed to BitBucket, a POST can originate from the repo and 
 For the details on the services included with Bitbucket, check out [BitBucket services](https://confluence.atlassian.com/display/BITBUCKET/Managing+bitbucket+Services)
 and [POST service](https://confluence.atlassian.com/display/BITBUCKET/Setting+Up+the+bitbucket+POST+Service).
 
-`fromBitBucket.jsp` does the following:
+`fromBitBucket.jsp` will do the following when complete:
 
  1. Accepts a POST in JSON format from BitBucket describing the commit.
  2. Verifies the POST to be a result of a valid commit from BB.
