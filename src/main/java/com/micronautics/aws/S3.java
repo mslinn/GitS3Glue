@@ -35,10 +35,14 @@ public class S3 {
             }
         };
         try {
-            s3 = new AmazonS3Client(awsCredentials);
+            if (awsCredentials.getAWSAccessKeyId()!=null && awsCredentials.getAWSSecretKey()!=null)
+                s3 = new AmazonS3Client(awsCredentials);
+            else
+                throw new Exception("Let's try again");
         } catch (Exception ex) {
             exception = ex;
-            s3 = new AmazonS3Client(new PropertiesCredentials(getClass().getResourceAsStream("AwsCredentials.properties")));
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("AwsCredentials.properties");
+            s3 = new AmazonS3Client(new PropertiesCredentials(inputStream));
         }
     }
 

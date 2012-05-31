@@ -3,11 +3,11 @@ tomcat.8080
 .classpath
 *~
 .cache
-.idea/
+.idea
 .idea_modules/
 .project
 .settings/
 *.iml
 *.stackdump
 project/target/
-
+AwsCredentials.properties
