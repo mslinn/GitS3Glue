@@ -28,18 +28,19 @@ passive and cannot pull, and this Heroku app should not poll for changes. A post
 needs to run on GitHub / BitBucket to push this Heroku app, which propagates changes to AWS S3.
 
 ## Git Post-Receive Service Hooks ##
-A JSP is dedicated to each git service. The JSPs will do the following when complete:
+A JSP is dedicated to receiving updates from each remote git service (GitHub or BitBucket).
+The JSPs will perform the following when complete:
 
- 1. Accepts a POST in JSON format from GitHub/BitBucket describing the commit.
- 2. Verifies the POST to be a result of a valid commit.
- 3. Reads a zip containing the committed files.
- 4. Unpacks the zip and pushes content files to AWS S3.
+ 1. Accept a POST in JSON format from the remote git service describing the commit.
+ 2. Verify the POST to be a result of a valid commit.
+ 3. Read a zip containing the committed files.
+ 4. Unpack the zip and push content files to AWS S3.
 
 ### GitHub WebHook URLs Hook ###
+`fromGitHub.jsp` is not written yet.
+
 The GitHub WebHook URLs(0) service is what we need.
 Go to Admin / Service Hooks and pick the first entry, then enter the URL to POST to.
-
-`fromGitHub.jsp` is not written yet.
 
 The service description says:
 "We’ll hit these URLs with POST requests when you push to us, passing along information about the push.
