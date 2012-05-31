@@ -26,6 +26,7 @@ The web app should now be up and running on Heroku. Open it in your browser with
  4. Commits to GitHub / BitBucket should cause changed files to be copied to AWS S3. Remember that S3 is
 passive and cannot pull, and this Heroku app should not poll for changes. A post-receive hook or service
 needs to run on GitHub / BitBucket to push to this Heroku app, which propagates changes to AWS S3.
+ 5. Additional processing might be done by this Heroku app for some or all commits.
 
 ## Git Post-Receive Service Hooks ##
 A JSP is dedicated to receiving updates from each remote git service (GitHub or BitBucket).
