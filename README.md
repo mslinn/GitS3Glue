@@ -20,9 +20,9 @@ The web app should now be up and running on Heroku. Open it in your browser with
     heroku open
 
 ## Use Case ##
- 1. Using GitHub and BitBucket for source control
- 2. Hosting content on AWS S3 (CDN)
- 3. S3 serves static web site
+ 1. Using GitHub or BitBucket for source control.
+ 2. Storing content on AWS S3 (CDN).
+ 3. AWS S3 serves a static web site from the content.
  4. Commits to GitHub / BitBucket should cause changed files to be copied to AWS S3. Remember that S3 is
 passive and cannot pull, and this Heroku app should not poll for changes. A post-receive hook or service
 needs to run on GitHub / BitBucket to push to this Heroku app, which propagates changes to AWS S3.
