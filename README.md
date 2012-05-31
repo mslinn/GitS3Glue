@@ -1,7 +1,7 @@
 AWS S3 access from Tomcat running on Heroku
 ===========================================
 
-    git clone git@github.com:mslinn/devcenter-embedded-tomcat.git
+    git clone git@github.com:mslinn/HerokuTomcatAwsS3.git
     git remote add heroku git@heroku.com:sharp-cloud-8613.git # use your Heroku app name here
 
 
