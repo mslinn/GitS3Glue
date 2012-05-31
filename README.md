@@ -1,4 +1,4 @@
-# AWS S3 access from Tomcat running on Heroku #
+# Update AWS S3 content from Git post-receive hooks, via Tomcat running on Heroku #
 
 ## To Run ##
 
