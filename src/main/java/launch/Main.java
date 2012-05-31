@@ -1,6 +1,8 @@
 package launch;
-import java.io.File;
+
 import org.apache.catalina.startup.Tomcat;
+
+import java.io.File;
 
 public class Main {
 
@@ -22,6 +24,6 @@ public class Main {
         System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
 
         tomcat.start();
-        tomcat.getServer().await();  
+        tomcat.getServer().await();
     }
 }

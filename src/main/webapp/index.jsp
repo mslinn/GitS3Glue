@@ -12,5 +12,7 @@ if (s3.exception!=null) {
      %><li><tt><%=s%></tt></li><%
   }
 } %></ul>
+<hr />
+<a href="showBitBucketPost.jsp">showBitBucketPost</a>
 </body>
 </html>
