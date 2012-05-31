@@ -27,6 +27,19 @@ The web app should now be up and running on Heroku. Open it in your browser with
 passive and cannot pull, and this Heroku app should not poll for changes. A post-receive hook or service
 needs to run on GitHub / BitBucket to push this Heroku app, which propagates changes to AWS S3.
 
+## GitHub WebHook URLs Hook ##
+The GitHub WebHook URLs(0) service is what we need.
+Go to Admin / Service Hooks and pick the first entry, then enter the URL to POST to.
+
+The service description says:
+"We’ll hit these URLs with POST requests when you push to us, passing along information about the push.
+More information can be found in the [Post-Receive Guide](http://help.github.com/post-receive-hooks/).
+The Public IP addresses for these hooks are: 207.97.227.253, 50.57.128.197, 108.171.174.178."
+
+FYI, GitHub's [service hooks](https://github.com/mslinn/HerokuTomcatAwsS3/admin/hooks) are open source, written in Ruby.
+They include user-written hooks into the public list.
+Docs are [here](https://github.com/github/github-services).
+
 ## BitBucket POST Service ##
 Each time files are pushed to BitBucket, a POST can originate from the repo and can go a designated URL.
 For the details on the services included with Bitbucket, check out [BitBucket services](https://confluence.atlassian.com/display/BITBUCKET/Managing+bitbucket+Services)
