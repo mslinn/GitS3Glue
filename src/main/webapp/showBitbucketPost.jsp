@@ -10,7 +10,7 @@
         <pre><%= contents %></pre>
         <hr/><p><%=tmpDir.getFreeSpace()%> bytes free on disk.</p><%
     } catch (Exception ex) {
-      %><%=ex.getMessage()%><%
+      %><pre><%=ex.getMessage()%></pre><%
     }
 %>
 </body>
