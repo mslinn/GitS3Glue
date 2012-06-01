@@ -1,4 +1,4 @@
-<%@page import="com.micronautics.aws.JSON, org.apache.commons.io.FileUtils, java.io.File" %>
+<%@page import="com.micronautics.aws.JSON, org.apache.commons.io.FileUtils, java.io.File, com.micronautics.aws.Commit" %>
 <html>
 <body>
 <%
@@ -37,7 +37,11 @@
     File tmpDir = (File)pageContext.getAttribute("javax.servlet.context.tmpdir");
     File bitBucketPost = new File(tmpDir, "bitBucketPost.txt");
     String payload = request.getParameter("payload");
-    FileUtils.writeStringToFile(bitBucketPost, JSON.parse(payload));
+    Commit commit = JSON.parse(payload);
+    String result = commit.name + "\n";
+    for (String key : commit.files.keySet())
+      result += key + ": " + commit.files.get(key) + "\n";
+    FileUtils.writeStringToFile(bitBucketPost, result);
 %>
 </body>
 </html>
