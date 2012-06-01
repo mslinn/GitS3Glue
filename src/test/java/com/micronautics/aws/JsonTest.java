@@ -46,6 +46,6 @@ public class JsonTest {
     public void parse() {
         System.out.println(payload);
         String result = JSON.parse(payload);
-        assertEquals("store/robots.txt: added", result);
+        assertEquals("store/robots.txt: added\n", result);
     }
 }

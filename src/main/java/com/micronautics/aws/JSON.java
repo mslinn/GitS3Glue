@@ -14,11 +14,17 @@ public class JSON {
         } catch (IOException e) {
             return e.getMessage();
         }
+
+        String result = "";
         JsonNode commitsNode = rootNode.path("commits");
-        JsonNode filesNode = commitsNode.get(0).path("files");
-        String fileName   = filesNode.get(0).path("file").getTextValue();
-        String fileAction = filesNode.get(0).path("type").getTextValue();
-        String result = fileName + ": " + fileAction;
+        for (JsonNode commitNode : commitsNode) {
+            JsonNode filesNode = commitNode.path("files");
+            for (JsonNode fileNode : filesNode) {
+                String fileName   = fileNode.path("file").getTextValue();
+                String fileAction = filesNode.get(0).path("type").getTextValue();
+                result += fileName + ": " + fileAction + "\n";
+            }
+        }
         return result;
     }
 }
