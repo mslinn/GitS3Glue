@@ -15,7 +15,7 @@ public class JSON {
             return e.getMessage();
         }
         JsonNode commitsNode = rootNode.path("commits");
-        JsonNode filesNode = commitsNode.get(0);
+        JsonNode filesNode = commitsNode.get(0).path("files");
         String fileName   = filesNode.get(0).path("file").getTextValue();
         String fileAction = filesNode.get(0).path("type").getTextValue();
         String result = fileName + ": " + fileAction;
