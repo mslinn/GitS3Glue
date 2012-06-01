@@ -4,6 +4,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.TreeMap;
+
 import static org.junit.Assert.assertEquals;
 
 public class JsonTest {
@@ -44,8 +46,11 @@ public class JsonTest {
 
     @Test
     public void parse() {
-        System.out.println(payload);
-        String result = JSON.parse(payload);
-        assertEquals("store/robots.txt: added\n", result);
+        //System.out.println(payload);
+        TreeMap<String, String> result = JSON.parse(payload);
+        String[] keys = result.keySet().toArray(new String[result.keySet().size()]);
+        assertEquals(1, keys.length);
+        assertEquals("store/robots.txt", keys[0]);
+        assertEquals("added", result.get(keys[0]));
     }
 }

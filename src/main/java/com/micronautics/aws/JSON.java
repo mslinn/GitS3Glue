@@ -4,25 +4,29 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.util.TreeMap;
 
 public class JSON {
-    public static String parse(String payload) {
+
+    /** @return sorted map of file path to action, where action is one of: "added", "deleted".
+     *          map is sorted by key (file path) */
+    public static TreeMap<String, String> parse(String payload) {
+        TreeMap<String, String> result = new TreeMap<String, String>();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = null;
         try {
             rootNode = mapper.readValue(payload, JsonNode.class);
         } catch (IOException e) {
-            return e.getMessage();
+            return result;
         }
 
-        String result = "";
         JsonNode commitsNode = rootNode.path("commits");
         for (JsonNode commitNode : commitsNode) {
             JsonNode filesNode = commitNode.path("files");
             for (JsonNode fileNode : filesNode) {
                 String fileName   = fileNode.path("file").getTextValue();
-                String fileAction = filesNode.get(0).path("type").getTextValue();
-                result += fileName + ": " + fileAction + "\n";
+                String fileAction = fileNode.path("type").getTextValue();
+                result.put(fileName, fileAction);
             }
         }
         return result;
