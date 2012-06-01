@@ -53,7 +53,7 @@ They include user-written hooks into the public list.
 Docs are [here](https://github.com/github/github-services).
 
 ### BitBucket POST Service ###
-`fromBitBucket.jsp` does the work.
+[`fromBitBucket.jsp`](https://github.com/mslinn/GitS3Glue/blob/master/src/main/webapp/fromBitBucket.jsp) does the work.
 
 Each time files are pushed to BitBucket, a POST can originate from the repo and can go a designated URL.
 For the details on the services included with Bitbucket, check out [BitBucket services](https://confluence.atlassian.com/display/BITBUCKET/Managing+bitbucket+Services).
