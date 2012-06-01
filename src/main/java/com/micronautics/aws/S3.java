@@ -35,14 +35,14 @@ public class S3 {
             }
         };
         try {
-            if (awsCredentials.getAWSAccessKeyId()!=null && awsCredentials.getAWSSecretKey()!=null)
+            if (awsCredentials.getAWSAccessKeyId()!=null && awsCredentials.getAWSSecretKey()!=null) {
                 s3 = new AmazonS3Client(awsCredentials);
-            else
-                throw new Exception("Let's try again");
+            } else {
+                InputStream inputStream = getClass().getClassLoader().getResourceAsStream("AwsCredentials.properties");
+                s3 = new AmazonS3Client(new PropertiesCredentials(inputStream));
+            }
         } catch (Exception ex) {
             exception = ex;
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("AwsCredentials.properties");
-            s3 = new AmazonS3Client(new PropertiesCredentials(inputStream));
         }
     }
 
