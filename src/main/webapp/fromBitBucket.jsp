@@ -1,4 +1,4 @@
-<%@page import="com.micronautics.aws.JSON, org.apache.commons.io.FileUtils, java.io.File, com.micronautics.aws.Commit" %>
+<%@page import="com.micronautics.aws.Commit, com.micronautics.aws.JSON, com.micronautics.aws.BBDownloader, org.apache.commons.io.FileUtils, java.io.File" %>
 <html>
 <body>
 <%
@@ -8,7 +8,7 @@
       "repository": {
         "website": "http://www.asdf.com/",
         "fork": false,
-        "name": "asdf.www",
+        "repoName": "asdf.www",
         "scm": "git",
         "absolute_url": "/mslinn/asdf.www/",
         "owner": "mslinn",
@@ -38,9 +38,11 @@
     File bitBucketPost = new File(tmpDir, "bitBucketPost.txt");
     String payload = request.getParameter("payload");
     Commit commit = JSON.parse(payload);
-    String result = commit.name + "\n";
-    for (String key : commit.files.keySet())
-      result += key + ": " + commit.files.get(key) + "\n";
+    String result = commit.repoName + "\n";
+    for (String fileName : commit.files.keySet()) {
+        result += fileName + ": " + commit.files.get(fileName) + "\n";
+        new BBDownloader(tmpDir, commit, fileName).call();
+    }
     FileUtils.writeStringToFile(bitBucketPost, result);
 %>
 </body>

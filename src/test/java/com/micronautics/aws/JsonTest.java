@@ -48,7 +48,8 @@ public class JsonTest {
         Commit commit = JSON.parse(payload);
         String[] keys = commit.files.keySet().toArray(new String[commit.files.keySet().size()]);
         assertEquals(1, keys.length);
-        assertEquals("asdf.www", commit.name);
+        assertEquals("mslinn", commit.ownerName);
+        assertEquals("asdf.www", commit.repoName);
         assertEquals("store/robots.txt", keys[0]);
         assertEquals("added", commit.files.get(keys[0]));
     }

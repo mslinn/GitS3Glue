@@ -19,7 +19,8 @@ public class JSON {
         }
 
         JsonNode repositoryNode = rootNode.path("repository");
-        commit.name = repositoryNode.path("name").getTextValue();
+        commit.repoName  = repositoryNode.path("name") .getTextValue();
+        commit.ownerName = repositoryNode.path("owner").getTextValue();
 
         JsonNode commitsNode = rootNode.path("commits");
         for (JsonNode commitNode : commitsNode) {

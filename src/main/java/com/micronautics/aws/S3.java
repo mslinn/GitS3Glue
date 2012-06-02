@@ -46,8 +46,8 @@ public class S3 {
         }
     }
 
-    /** Create a new S3 bucket - Amazon S3 bucket names are globally unique, so once a bucket name has been
-     * taken by any user, you can't create another bucket with that same name.
+    /** Create a new S3 bucket - Amazon S3 bucket names are globally unique, so once a bucket repoName has been
+     * taken by any user, you can't create another bucket with that same repoName.
      *
      * You can optionally specify a location for your bucket if you want to keep your data closer to your applications or users. */
     public void createBucket(String bucketName) {
