@@ -34,8 +34,16 @@ The JSPs will perform the following when complete:
 
  1. Accept a POST in JSON format from the remote git service describing the commit.
  2. Verify the POST to be a result of a valid commit.
- 3. Read a zip containing the committed files.
- 4. Unpack the zip and push content files to AWS S3.
+ 3. Read each of the committed files and store into a temporary directory.
+ 4. Push content files to AWS S3.
+
+ I had written a streaming copy utility from the Git repository to AWS S3 using NIO, but later discovered that AWS S3
+ needs to know the file size prior to initiating a transfer.
+ The only way I could discover the file size was to store each file locally :(
+ Let's hope the temporary disk space accessible from Tomcat is big enough.
+ 2GB per file would be ideal.
+ Not sure how many threads are available to the Heroku instance; I want to allocate as many threads as possible and
+ transfer files in parallel.
 
 ### GitHub WebHook URLs Hook ###
 `fromGitHub.jsp` is not written yet.
@@ -58,3 +66,5 @@ Docs are [here](https://github.com/github/github-services).
 Each time files are pushed to BitBucket, a POST can originate from the repo and can go a designated URL.
 For the details on the services included with Bitbucket, check out [BitBucket services](https://confluence.atlassian.com/display/BITBUCKET/Managing+bitbucket+Services).
 This Heroku app works with the [POST service](https://confluence.atlassian.com/display/BITBUCKET/Setting+Up+the+bitbucket+POST+Service).
+Basic authentication doesn't work for some of direct file routes; an internal ticket has been opened.
+I'll use OAuth for authenticating against private git repositories hosted on BitBucket.
