@@ -18,7 +18,7 @@ public class BBDownloaderTest {
         Commit commit = new Commit();
         commit.ownerName = "mslinn";
         commit.repoName = "slinnbooks.www";
-        commit.files.put("index.jsp", "added");
+        commit.files.put("index.jsp", "added"); // Possible types are: added, modified, removed
         commit.files.put("presentations.jsp", "added");
         for (String file : commit.files.keySet())
             new BBDownloader(FileUtils.getTempDirectory(), commit, file).call();

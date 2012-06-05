@@ -27,7 +27,7 @@ public class JSON {
             JsonNode filesNode = commitNode.path("files");
             for (JsonNode fileNode : filesNode) {
                 String fileName   = fileNode.path("file").getTextValue();
-                String fileAction = fileNode.path("type").getTextValue();
+                String fileAction = fileNode.path("type").getTextValue(); // Possible types are: added, modified, removed
                 commit.files.put(fileName, fileAction);
             }
         }
