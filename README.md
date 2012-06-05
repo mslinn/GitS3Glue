@@ -11,6 +11,12 @@ Define two environment variables to hold your AWS access key and your AWS secret
     heroku config:add accessKey=34poslkflskeflsekjfl
     heroku config:add secretKey=asdfoif3r3wfw3wgagawgawgawgw3taw3tatefef
 
+If you want to access a private repository on BitBucket, get OAuth credentials from support@BitBucket.com and
+define two more environment variables:
+
+    heroku config:add bbAccessKey=34poslkflskeflsekjfl
+    heroku config:add bbSecretKey=asdfoif3r3wfw3wgagawgawgawgw3taw3tatefef
+
 Deploy the project to Heroku:
 
     git push heroku master

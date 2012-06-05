@@ -11,3 +11,5 @@ tomcat.8080
 *.stackdump
 project/target/
 AwsCredentials.properties
+BBCredentials.properties
+
