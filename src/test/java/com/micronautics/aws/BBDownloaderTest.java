@@ -5,6 +5,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class BBDownloaderTest {
 
     @BeforeClass
@@ -14,7 +16,7 @@ public class BBDownloaderTest {
     public static void tearDownClass() { }
 
     @Test
-    public void downloadBbTest() {
+    public void downloadBbTest() throws IOException {
         Commit commit = new Commit();
         commit.ownerName = "mslinn";
         commit.repoName = "slinnbooks.www";
