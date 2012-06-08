@@ -1,68 +1,60 @@
 package com.micronautics.aws;
 
 import org.scribe.builder.api.DefaultApi10a;
-import org.scribe.builder.api.TwitterApi;
 import org.scribe.model.Token;
 
 public class BitBucketApi extends DefaultApi10a {
-  // oauth_token is bogus, but there is probably a parameter that gets passed in here
-  private static final String AUTHORIZE_URL = "https://bitbucket.org/api/1.0/oauth/authenticate/?oauth_token=%s";
-  private static final String REQUEST_TOKEN_RESOURCE = "bitbucket.org/api/1.0/oauth/request_token/";
-  private static final String ACCESS_TOKEN_RESOURCE = "bitbucket.org/api/1.0/oauth/access_token/";
+    // oauth_token is bogus, but there is probably a parameter that gets passed in here
+    private static final String AUTHORIZE_URL = "https://bitbucket.org/api/1.0/oauth/authenticate/";
+    private static final String REQUEST_TOKEN_RESOURCE = "https://bitbucket.org/api/1.0/oauth/request_token/";
+    private static final String ACCESS_TOKEN_RESOURCE = "https://bitbucket.org/api/1.0/oauth/access_token/";
 
-  @Override
-  public String getAccessTokenEndpoint()
-  {
-    return "http://" + ACCESS_TOKEN_RESOURCE;
-  }
-
-  @Override
-  public String getRequestTokenEndpoint()
-  {
-    return "http://" + REQUEST_TOKEN_RESOURCE;
-  }
-
-  @Override
-  public String getAuthorizationUrl(Token requestToken)
-  {
-    return String.format(AUTHORIZE_URL, requestToken.getToken());
-  }
-
-  public static class SSL extends TwitterApi
-  {
     @Override
-    public String getAccessTokenEndpoint()
-    {
-      return "https://" + ACCESS_TOKEN_RESOURCE;
+    public String getAccessTokenEndpoint() {
+        return ACCESS_TOKEN_RESOURCE;
     }
 
     @Override
-    public String getRequestTokenEndpoint()
-    {
-      return "https://" + REQUEST_TOKEN_RESOURCE;
+    public String getRequestTokenEndpoint() {
+        return REQUEST_TOKEN_RESOURCE;
     }
-  }
-
-  /**
-   * BitBucket 'friendlier' authorization endpoint for OAuth.
-   *
-   * Uses SSL.
-   */
-  public static class Authenticate extends SSL
-  {
-    private static final String AUTHENTICATE_URL = "https://bitbucket.org/api/1.0/oauth/authenticate?oauth_token=%s";
 
     @Override
-    public String getAuthorizationUrl(Token requestToken)
-    {
-      return String.format(AUTHENTICATE_URL, requestToken.getToken());
+    public String getAuthorizationUrl(Token requestToken) {
+        return AUTHORIZE_URL;
     }
-  }
 
-  /**
-   * Just an alias to the default (SSL) authorization endpoint.
-   *
-   * Need to include this for symmetry with 'Authenticate' only.
-   */
-  public static class Authorize extends SSL{}
+    public static class SSL extends BitBucketApi {
+        @Override
+        public String getAccessTokenEndpoint() {
+            return ACCESS_TOKEN_RESOURCE;
+        }
+
+        @Override
+        public String getRequestTokenEndpoint() {
+            return REQUEST_TOKEN_RESOURCE;
+        }
+    }
+
+    /**
+     * BitBucket 'friendlier' authorization endpoint for OAuth.
+     * <p/>
+     * Uses SSL.
+     */
+    public static class Authenticate extends SSL {
+        private static final String AUTHENTICATE_URL = "https://bitbucket.org/api/1.0/oauth/authenticate/";
+
+        @Override
+        public String getAuthorizationUrl(Token requestToken) {
+            return AUTHENTICATE_URL;
+        }
+    }
+
+    /**
+     * Just an alias to the default (SSL) authorization endpoint.
+     * <p/>
+     * Need to include this for symmetry with 'Authenticate' only.
+     */
+    public static class Authorize extends SSL {
+    }
 }
