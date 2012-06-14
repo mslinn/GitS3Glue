@@ -9,6 +9,7 @@ import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
@@ -24,7 +25,7 @@ public class S3 {
     private AmazonS3 s3;
     public Exception exception;
 
-    public S3() throws IOException {
+    public S3() {
         AWSCredentials awsCredentials = new AWSCredentials() {
             public String getAWSAccessKeyId() {
                 return System.getenv("accessKey");
@@ -69,7 +70,17 @@ public class S3 {
     * like content-type and content-encoding, plus additional metadata
     * specific to your applications. */
     public void uploadFile(String bucketName, String key, File file) {
-            s3.putObject(new PutObjectRequest(bucketName, key, file));
+        s3.putObject(new PutObjectRequest(bucketName, key, file));
+    }
+
+    /** @see http://docs.amazonwebservices.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/model/ObjectMetadata.html */
+    public void uploadStream(String bucketName, String key, InputStream stream, int filesize) {
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(filesize);
+        //metadata.setContentType("whatever");
+        //metadata.setContentEncoding("utf-8");
+        //metadata.setCacheControl("cacheControl");
+        s3.putObject(new PutObjectRequest(bucketName, key, stream, metadata));
     }
 
     /** Download an object - When you download an object, you get all of the object's metadata and a

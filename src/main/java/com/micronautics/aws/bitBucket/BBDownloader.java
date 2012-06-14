@@ -1,4 +1,4 @@
-package com.micronautics.aws;
+package com.micronautics.aws.bitBucket;
 
 import org.apache.commons.io.FileUtils;
 import org.scribe.model.Response;
@@ -11,13 +11,13 @@ public class BBDownloader implements Callable<File> {
     File tmpDir;
     Commit commit;
     String fileName;
-    BitBucket bitBucket;
+    BitBucketOAuth bitBucket;
 
     public BBDownloader(File tmpDir, Commit commit, String fileName) throws IOException {
         this.tmpDir = tmpDir;
         this.commit = commit;
         this.fileName = fileName;
-        bitBucket = new BitBucket();
+        bitBucket = new BitBucketOAuth();
     }
 
     public File call() {

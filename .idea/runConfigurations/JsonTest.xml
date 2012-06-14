@@ -6,11 +6,11 @@
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <module name="HerokuTomcatAwsS3" />
+    <module name="GitS3Glue" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" value="" />
-    <option name="PACKAGE_NAME" value="com.micronautics.aws" />
-    <option name="MAIN_CLASS_NAME" value="com.micronautics.aws.JsonTest" />
+    <option name="PACKAGE_NAME" value="com.micronautics.aws.bitBucket" />
+    <option name="MAIN_CLASS_NAME" value="com.micronautics.aws.bitBucket.JsonTest" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="class" />
     <option name="VM_PARAMETERS" value="" />
