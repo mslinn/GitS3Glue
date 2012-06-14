@@ -66,7 +66,15 @@ public class BBContextServlet extends HttpServlet {
         }
         FileUtils.writeStringToFile(bbContext.bitBucketPost, result);
 
-        String msg = result + "\nBBContextServlet has " + NumberFormat.getInstance().format(bbContext.tmpDir.getUsableSpace()) + " bytes of free disk space";
+        Runtime runtime = Runtime.getRuntime();
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        String msg = result +
+                "\nBBContextServlet has " + numberFormat.format(bbContext.tmpDir.getUsableSpace()) +
+                  " bytes of free disk space\n" +
+                runtime.availableProcessors() + " available processors\n" +
+                Thread.activeCount() + " active threads\n" +
+                "Memory: " + numberFormat.format(runtime.freeMemory()) + " bytes free, of " +
+                  numberFormat.format(runtime.totalMemory()) + " bytes";
         out.write(msg.getBytes());
         out.flush();
         out.close();
