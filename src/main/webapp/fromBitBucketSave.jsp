@@ -17,7 +17,7 @@
       },
       "commits": [
         {"node": "b51cd557430b",
-         "files": [{"type": "added", "file": "store/robots.txt"}],
+         "filesToActions": [{"type": "added", "file": "store/robots.txt"}],
          "branch": "master",
          "utctimestamp": "2012-05-31 05:01:58+00:00",
          "author": "mslinn",
@@ -39,8 +39,8 @@
     String payload = request.getParameter("payload");
     Commit commit = JSON.parseCommit(payload);
     String result = commit.repoName + "\n";
-    for (String fileName : commit.files.keySet()) {
-        result += fileName + ": " + commit.files.get(fileName) + "\n";
+    for (String fileName : commit.filesToActions.keySet()) {
+        result += fileName + ": " + commit.filesToActions.get(fileName) + "\n";
         new BBDownloader(tmpDir, commit, fileName).call();
     }
     FileUtils.writeStringToFile(bitBucketPost, result);

@@ -37,7 +37,7 @@ public class BBContextServlet extends HttpServlet {
       },
       "commits": [
         {"node": "b51cd557430b",
-         "files": [{"type": "added", "file": "store/robots.txt"}],
+         "filesToActions": [{"type": "added", "file": "store/robots.txt"}],
          "branch": "master",
          "utctimestamp": "2012-05-31 05:01:58+00:00",
          "author": "mslinn",
@@ -56,13 +56,20 @@ public class BBContextServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
         ServletOutputStream out = response.getOutputStream();
-
         String payload = request.getParameter("payload");
         Commit commit = JSON.parseCommit(payload);
         String result = commit.repoName + "\n";
-        for (String fileName : commit.files.keySet()) {
-            String fileMetaJson = bbContext.bitBucketBasicAuth.urlStrSrc(commit.ownerName, commit.repoName, fileName);
-            result += fileName + ": " + commit.files.get(fileName) + " " + JSON.parseFileSize(fileMetaJson, fileName) + "bytes\n";
+        try {
+            for (String fileName : commit.filesToActions.keySet()) {
+                String fileMetaJson = bbContext.bitBucketBasicAuth.urlStrSrc(commit.ownerName, commit.repoName, fileName);
+                int fileSize = JSON.parseFileSize(fileMetaJson, fileName);
+                String rawFileUrl = bbContext.bitBucketBasicAuth.urlStrRaw(commit.ownerName, commit.repoName, fileName);
+                String action = commit.filesToActions.get(fileName); // todo figure out how to handle
+                result += "  " + fileName + ": " + commit.filesToActions.get(fileName) + " " + fileSize + "bytes from " + rawFileUrl + "\n";
+                bbContext.s3.uploadStream(commit.repoName, "key", bbContext.bitBucketBasicAuth.getInputStream(rawFileUrl), fileSize);
+            }
+        } catch (Exception e) {
+            result += "\nError: " + e.getMessage();
         }
         FileUtils.writeStringToFile(bbContext.bitBucketPost, result);
 
@@ -72,7 +79,7 @@ public class BBContextServlet extends HttpServlet {
                 "\nBBContextServlet has " + numberFormat.format(bbContext.tmpDir.getUsableSpace()) +
                   " bytes of free disk space\n" +
                 runtime.availableProcessors() + " available logical processors (hardware threads)\n" +
-                Thread.activeCount() + " active threads\n" +
+                Thread.activeCount() + " active threads of 200 available\n" +
                 "Memory: " + numberFormat.format(runtime.freeMemory()) + " bytes free, of " +
                   numberFormat.format(runtime.totalMemory()) + " bytes";
         out.write(msg.getBytes());

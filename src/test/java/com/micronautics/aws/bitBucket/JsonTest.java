@@ -1,7 +1,5 @@
 package com.micronautics.aws.bitBucket;
 
-import com.micronautics.aws.bitBucket.Commit;
-import com.micronautics.aws.bitBucket.JSON;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,7 +20,7 @@ public class JsonTest {
             "      },\n" +
             "      \"commits\": [\n" +
             "        {\"node\": \"b51cd557430b\",\n" +
-            "         \"files\": [{\"type\": \"added\", \"file\": \"store/robots.txt\"}],\n" +
+            "         \"filesToActions\": [{\"type\": \"added\", \"file\": \"store/robots.txt\"}],\n" +
             "         \"branch\": \"master\",\n" +
             "         \"utctimestamp\": \"2012-05-31 05:01:58+00:00\",\n" +
             "         \"author\": \"mslinn\",\n" +
@@ -48,11 +46,11 @@ public class JsonTest {
     public void parse() {
         //System.out.println(payload);
         Commit commit = JSON.parseCommit(payload);
-        String[] keys = commit.files.keySet().toArray(new String[commit.files.keySet().size()]);
+        String[] keys = commit.filesToActions.keySet().toArray(new String[commit.filesToActions.keySet().size()]);
         assertEquals(1, keys.length);
         assertEquals("mslinn", commit.ownerName);
         assertEquals("asdf.www", commit.repoName);
         assertEquals("store/robots.txt", keys[0]);
-        assertEquals("added", commit.files.get(keys[0]));
+        assertEquals("added", commit.filesToActions.get(keys[0]));
     }
 }

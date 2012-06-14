@@ -3,6 +3,8 @@ package com.micronautics.aws.bitBucket;
 import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.Token;
 
+/** Abandoned because BitBucket does not yet support OAuth for file access.
+ * Might revisit when BB gets this together. */
 public class BitBucketApi extends DefaultApi10a {
     // oauth_token is bogus, but there is probably a parameter that gets passed in here
     private static final String AUTHORIZE_URL = "https://bitbucket.org/api/1.0/oauth/authenticate/";

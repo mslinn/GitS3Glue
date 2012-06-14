@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
+/** Not needed any more because stream to stream copying is possible. */
 public class BBDownloader implements Callable<File> {
     File tmpDir;
     Commit commit;

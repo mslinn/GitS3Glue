@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/** Abandoned because BitBucket does not yet support OAuth for file access.
+ * Might revisit when BB gets this together. */
 public class BitBucketOAuth {
     public Exception exception;
     String accessKey;

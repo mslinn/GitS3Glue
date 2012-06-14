@@ -73,7 +73,8 @@ public class S3 {
         s3.putObject(new PutObjectRequest(bucketName, key, file));
     }
 
-    /** @see http://docs.amazonwebservices.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/model/ObjectMetadata.html */
+    /** @param key not sure what this is for; might it be a directory name?
+     *  @see http://docs.amazonwebservices.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/model/ObjectMetadata.html */
     public void uploadStream(String bucketName, String key, InputStream stream, int filesize) {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(filesize);

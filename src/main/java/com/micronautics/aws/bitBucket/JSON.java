@@ -26,11 +26,11 @@ public class JSON {
 
         JsonNode commitsNode = rootNode.path("commits");
         for (JsonNode commitNode : commitsNode) {
-            JsonNode filesNode = commitNode.path("files");
+            JsonNode filesNode = commitNode.path("filesToActions");
             for (JsonNode fileNode : filesNode) {
                 String fileName   = fileNode.path("file").getTextValue();
                 String fileAction = fileNode.path("type").getTextValue(); // Possible types are: added, modified, removed
-                commit.files.put(fileName, fileAction);
+                commit.filesToActions.put(fileName, fileAction);
             }
         }
         return commit;
@@ -49,7 +49,7 @@ public class JSON {
              "dir2",
              "dir3"
          ],
-         "files": [
+         "filesToActions": [
              {
                  "size": 68081,
                  "path": "dir1/blah blah blah.pdf",
@@ -76,7 +76,7 @@ public class JSON {
         }
 
         String path  = rootNode.path("path").getTextValue();
-        JsonNode filesNode = rootNode.path("files");
+        JsonNode filesNode = rootNode.path("filesToActions");
         for (JsonNode fileNode : filesNode) {
             String filePath = fileNode.path("path").getTextValue();
             String name = filePath.substring(path.length());

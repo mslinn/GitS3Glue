@@ -1,7 +1,5 @@
 package com.micronautics.aws.bitBucket;
 
-import com.micronautics.aws.bitBucket.BBDownloader;
-import com.micronautics.aws.bitBucket.Commit;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -22,9 +20,9 @@ public class BBDownloaderTest {
         Commit commit = new Commit();
         commit.ownerName = "mslinn";
         commit.repoName = "slinnbooks.www";
-        commit.files.put("index.jsp", "added"); // Possible types are: added, modified, removed
-        commit.files.put("presentations.jsp", "added");
-        for (String file : commit.files.keySet())
+        commit.filesToActions.put("index.jsp", "added"); // Possible types are: added, modified, removed
+        commit.filesToActions.put("presentations.jsp", "added");
+        for (String file : commit.filesToActions.keySet())
             new BBDownloader(FileUtils.getTempDirectory(), commit, file).call();
     }
 }
