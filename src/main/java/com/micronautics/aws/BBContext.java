@@ -17,7 +17,7 @@ public class BBContext {
     public BBContext(ServletConfig servletConfig) {
         this.servletConfig = servletConfig;
         servletContext = servletConfig.getServletContext();
-        tmpDir = (File)servletContext.getAttribute("javax.servlet.context.tmpdir");
+        tmpDir = (File)servletContext.getAttribute("javax.servlet.context.tempdir");
         bitBucketPost = new File(tmpDir, "bitBucketPost.txt");
         bitBucketBasicAuth = new BitBucketBasicAuth(s3);
     }

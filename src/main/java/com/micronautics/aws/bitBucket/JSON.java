@@ -9,6 +9,9 @@ public class JSON {
 
     public static Commit parseCommit(String payload) {
         Commit commit = new Commit();
+        if (payload==null || payload.length()==0)
+            return commit;
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = null;
         try {

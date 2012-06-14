@@ -4,6 +4,7 @@ import com.micronautics.aws.bitBucket.Commit;
 import com.micronautics.aws.bitBucket.JSON;
 import org.apache.commons.io.FileUtils;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -11,10 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.NumberFormat;
 
-@WebServlet(name="BBContextServlet", urlPatterns={"/bb"}, loadOnStartup=1)
+@WebServlet(urlPatterns={"/bb"}, loadOnStartup=1)
 public class BBContextServlet extends HttpServlet {
-    public BBContext bbContext = new BBContext(getServletConfig());
+    public BBContext bbContext;
+
+    public void init(ServletConfig config) throws ServletException {
+        bbContext = new BBContext(config);
+    }
 
      /** Captures payload parameter and writes to temporary file, which is deleted when the webapp restarts.
     The payload looks like this:
@@ -60,7 +66,7 @@ public class BBContextServlet extends HttpServlet {
         }
         FileUtils.writeStringToFile(bbContext.bitBucketPost, result);
 
-        String msg = result + "\nBBContextServlet has " + bbContext.tmpDir.getUsableSpace() + " bytes of free disk space";
+        String msg = result + "\nBBContextServlet has " + NumberFormat.getInstance().format(bbContext.tmpDir.getUsableSpace()) + " bytes of free disk space";
         out.write(msg.getBytes());
         out.flush();
         out.close();

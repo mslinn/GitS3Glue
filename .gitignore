@@ -12,4 +12,4 @@ tomcat.8080
 project/target/
 AwsCredentials.properties
 BBCredentials.properties
-
+classes/
