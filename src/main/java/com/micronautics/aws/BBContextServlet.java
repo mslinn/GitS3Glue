@@ -2,7 +2,6 @@ package com.micronautics.aws;
 
 import com.micronautics.aws.bitBucket.Commit;
 import com.micronautics.aws.bitBucket.JSON;
-import freenet.support.CPUInformation.CPUID;
 import org.apache.commons.io.FileUtils;
 
 import javax.servlet.ServletConfig;
