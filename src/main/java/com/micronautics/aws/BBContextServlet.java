@@ -2,6 +2,7 @@ package com.micronautics.aws;
 
 import com.micronautics.aws.bitBucket.Commit;
 import com.micronautics.aws.bitBucket.JSON;
+import freenet.support.CPUInformation.CPUID;
 import org.apache.commons.io.FileUtils;
 
 import javax.servlet.ServletConfig;
@@ -71,7 +72,7 @@ public class BBContextServlet extends HttpServlet {
         String msg = result +
                 "\nBBContextServlet has " + numberFormat.format(bbContext.tmpDir.getUsableSpace()) +
                   " bytes of free disk space\n" +
-                runtime.availableProcessors() + " available processors\n" +
+                runtime.availableProcessors() + " available logical processors (hardware threads)\n" +
                 Thread.activeCount() + " active threads\n" +
                 "Memory: " + numberFormat.format(runtime.freeMemory()) + " bytes free, of " +
                   numberFormat.format(runtime.totalMemory()) + " bytes";
