@@ -24,9 +24,10 @@ import java.util.LinkedList;
 public class S3 {
     private AmazonS3 s3;
     public Exception exception;
+    public AWSCredentials awsCredentials;
 
     public S3() {
-        AWSCredentials awsCredentials = new AWSCredentials() {
+        this.awsCredentials = new AWSCredentials() {
             public String getAWSAccessKeyId() {
                 return System.getenv("accessKey");
             }
@@ -40,7 +41,8 @@ public class S3 {
                 s3 = new AmazonS3Client(awsCredentials);
             } else {
                 InputStream inputStream = getClass().getClassLoader().getResourceAsStream("AwsCredentials.properties");
-                s3 = new AmazonS3Client(new PropertiesCredentials(inputStream));
+                awsCredentials = new PropertiesCredentials(inputStream);
+                s3 = new AmazonS3Client(awsCredentials);
             }
         } catch (Exception ex) {
             exception = ex;
@@ -93,7 +95,7 @@ public class S3 {
      * based on modification times, ETags, and selectively downloading a range of an object. */
     public InputStream downloadFile(String bucketName, String key) {
         S3Object object = s3.getObject(new GetObjectRequest(bucketName, key));
-        System.out.println("Content-Type: " + object.getObjectMetadata().getContentType()); // todo capture this?
+//        System.out.println("Content-Type: " + object.getObjectMetadata().getContentType());
         return object.getObjectContent();
     }
 
@@ -111,6 +113,14 @@ public class S3 {
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries())
             result.add(objectSummary.getKey() + " (size = " + objectSummary.getSize() + ")");
         return result.toArray(new String[result.size()]);
+    }
+
+    public S3ObjectSummary getObjectData(String bucketName, String prefix) {
+        ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix));
+        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries())
+            if (objectSummary.getKey().compareTo(prefix)==0)
+                return objectSummary;
+        return null;
     }
 
     /** Delete an object - Unless versioning has been turned on for your bucket,
