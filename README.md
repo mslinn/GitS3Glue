@@ -3,7 +3,7 @@
 ## To Run ##
 
     git clone git@github.com:mslinn/HerokuTomcatAwsS3.git
-    git remote add heroku git@heroku.com:sharp-cloud-8613.git # use your Heroku app name here
+    git remote add heroku git@heroku.com:gits3glue.git # use your Heroku app name here
 
 
 Define two environment variables to hold your AWS access key and your AWS secret key:
